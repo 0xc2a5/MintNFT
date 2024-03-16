@@ -1,34 +1,39 @@
 async function run() {
     const { create } = await import('ipfs-http-client');
-    const ipfs = await create();
-    
+    const ipfs = create();
+
     // we added three attributes, add as many as you want!
     const metadata = {
         path: '/',
         content: JSON.stringify({
-            name: "My First NFT",
+            name: "#e60012",
             attributes: [
-            {
-                "trait_type": "Peace",
-                "value": "10" 
-            },
-            {
-                "trait_type": "Love",
-                "value": "100"
-            },
-            {
-                "trait_type": "Web3",
-                "value": "1000"
-            }
+                {
+                    "trait_type": "Color",
+                    "value": "Red"
+                },
+                {
+                    "display_type": "date",
+                    "trait_type": "Created",
+                    "value": 1710559177
+                },
+                {
+                    "trait_type": "Web3",
+                    "value": "1000"
+                }
             ],
-            // update the IPFS CID to be your image CID
-            image: "https://ipfs.io/ipfs/QmQ2wnwaFJ1w42UTywTWpM8RgiqrWwKFR6AMrpyiHPgi3p",
-            description: "So much PLW3!"
+            image: "https://ipfs.io/ipfs/QmVfXNQ2xRTUX96iod1k5bKtid8pHipZvS3Mv9TxnAFaqQ",
+            description: "Red square #e60012"
         })
     };
 
-    const result = await ipfs.add(metadata);
+    const result = await ipfs.add(metadata, { duplex: true });
     console.log(result);
+    // {
+    //   path: 'QmRQnd3deSgKXoq5L5tHxuuEY97WxPG6x6A4Q4qL7q1qJu',
+    //   cid: CID(QmRQnd3deSgKXoq5L5tHxuuEY97WxPG6x6A4Q4qL7q1qJu),
+    //   size: 297
+    // }
 
     process.exit(0);
 }
